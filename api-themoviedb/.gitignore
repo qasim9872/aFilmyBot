@@ -1,0 +1,15 @@
+*.class
+# Package Files #
+*.jar
+*.war
+*.ear
+*.bin
+/target/
+/nbactions.xml
+testing.properties
+*.bin
+.settings
+.classpath
+.project
+.DS_Store
+/nbproject/
