@@ -14,7 +14,7 @@ For example, if the given query was "search for a movie by the name Avengers", t
  
  For the third api key, you need to create an account on https://www.themoviedb.org and get you api key.
  
- Lastly, in order to use the voice message function, you need the application_default_credentials.json file from google. More information is present here: https://developers.google.com/identity/protocols/application-default-credentials
+ Lastly, in order to use the voice message function, you need the application_default_credentials.json file from google and set the path to it as an environment variable. More information is present here: https://developers.google.com/identity/protocols/application-default-credentials
  The easiest would be to download google gcloud sdk and use it to set the application default credentials.
  
 This project contains parts from some other github projects:
