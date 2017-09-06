@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+/**
+ * A special hashMap class that limits the number of entries and also resets the map after 1 day
+ */
 public class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
 	/**
 	 * 
@@ -18,11 +21,11 @@ public class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
 	public MaxSizeHashMap(int maxSize) {
 		this.maxSize = maxSize;
 		setMapResetTime();
-//		System.out.println(timeMapReset);
+		// System.out.println(timeMapReset);
 	}
 
 	/**
-	 * Whenever get or put is called, 
+	 * This method resets the map reset time to plus 1 day of current time
 	 */
 	private void setMapResetTime() {
 		LocalDateTime ldt = LocalDateTime.now().plusDays(1);
@@ -30,41 +33,38 @@ public class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
 	}
 
 	@Override
-	public V get(Object key)
-	{
-//		System.out.println("Getting value from over ridden method");
+	public V get(Object key) {
+		// System.out.println("Getting value from over ridden method");
 		checkExpiredMap();
 		V val = super.get(key);
-		System.out.println("getting value from map --> "+val);
-//		JOptionPane.showMessageDialog(null, "getting value");
+		System.out.println("getting value from map --> " + val);
+		// JOptionPane.showMessageDialog(null, "getting value");
 		return val;
 	}
-	
+
 	@Override
-	public V put(K key, V value)
-	{
-//		System.out.println("Putting value from over ridden method");
+	public V put(K key, V value) {
+		// System.out.println("Putting value from over ridden method");
 		checkExpiredMap();
 		V val = super.put(key, value);
-		System.out.println("\ninserting value to map --> "+value);
-//		JOptionPane.showMessageDialog(null, "putting value");
+		System.out.println("\ninserting value to map --> " + value);
+		// JOptionPane.showMessageDialog(null, "putting value");
 		return val;
 	}
 
 	/**
-	 * Whenever get or put is called, this method is executed, it checks if the map needs to be emptied
-	 * Preferably so in order to load new information
+	 * Whenever get or put is called, this method is executed, it checks if the map
+	 * needs to be emptied Preferably so in order to load new information
 	 */
 	private void checkExpiredMap() {
-//		System.out.println("checking expired time");
+		// System.out.println("checking expired time");
 		long currentTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
-//		System.out.println(currentTime + " <--> " + timeMapReset);
-		if(currentTime > timeMapReset)
-			{
-				System.out.println("resetting map");
-				this.clear();
-				setMapResetTime();
-			}
+		// System.out.println(currentTime + " <--> " + timeMapReset);
+		if (currentTime > timeMapReset) {
+			System.out.println("resetting map");
+			this.clear();
+			setMapResetTime();
+		}
 	}
 
 	@Override

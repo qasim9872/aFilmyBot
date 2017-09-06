@@ -76,18 +76,29 @@ public class Utilities {
 		return aSet;
 	}
 
-	public static void addInlineButtonToMarkup(InlineKeyboardMarkup markup, int l, String text, String callBack) {
+	/**
+	 * Updates the given InlineKeyboardMarkup instance with a new
+	 * InlineKeyboardButton at line given by parameter l with display text given by
+	 * text and sets the callback data as callBack
+	 */
+	public static void addInlineButtonToMarkup(InlineKeyboardMarkup markup, int lineNum, String text, String callBack) {
 		List<List<InlineKeyboardButton>> rowsInline = markup.getKeyboard();
 
-		if (l > rowsInline.size()) {
+		if (lineNum > rowsInline.size()) {
 			List<InlineKeyboardButton> rowInline = new ArrayList<>();
 			rowsInline.add(rowInline);
 		}
 
 		InlineKeyboardButton button = new InlineKeyboardButton().setText(text).setCallbackData(callBack);
-		rowsInline.get(l - 1).add(button);
+		rowsInline.get(lineNum - 1).add(button);
 	}
 
+	/**
+	 * Returns a new InlineKeyboardMarkup object to be added to the SendMessage
+	 * object
+	 * 
+	 * @return <code>InlineKeyboardMarkup</code>
+	 */
 	public static InlineKeyboardMarkup getNewInlineKeyboardMarkup() {
 		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -97,6 +108,12 @@ public class Utilities {
 		return markupInline;
 	}
 
+	/**
+	 * This method parses the HashMap to retrieve the parameters
+	 * 
+	 * @return <code>List of String</code>
+	 * 
+	 */
 	public static List<String> getParametersAsString(HashMap<String, JsonElement> parameters) {
 		List<String> params = new ArrayList<>();
 
@@ -122,6 +139,12 @@ public class Utilities {
 		return params;
 	}
 
+	/**
+	 * This creates a String representation with markup to be displayed to the user
+	 * for the given movieBasic or movieInfo object
+	 * 
+	 * @return <code>String</code>
+	 */
 	public static <T extends MovieBasic> String displayString(T mi, int c) {
 		String display = "Match no." + (c + 1);
 
@@ -137,6 +160,14 @@ public class Utilities {
 		return display;
 	}
 
+	/**
+	 * cValue is the current displayable item in the results, the new one is
+	 * calculated by move which says next or previous and the size makes sure c
+	 * value doesn't go out of bound
+	 * 
+	 * @return <code>int</code>
+	 * @throws MovieDbException
+	 */
 	public static int getCurrentDisplayItem(String cValue, String move, int size) throws MovieDbException {
 		if (size == 0)
 			throwMovieDBDummyError();
@@ -150,6 +181,13 @@ public class Utilities {
 			return c;
 	}
 
+	/**
+	 * This method returns a SendMessage object with the default reply text provided
+	 * by the api.ai
+	 * 
+	 * @return <code>Set of Type Integer</code>
+	 * 
+	 */
 	public static SendMessage sendDefaultReply(Result result) {
 		String reply = result.getFulfillment().getSpeech();
 		SendMessage sm = new SendMessage().setText(reply);
@@ -166,9 +204,14 @@ public class Utilities {
 		return sm;
 	}
 
+	/**
+	 * using set we remove duplicates since we cannot have same genre multiple times
+	 * in a movie
+	 * 
+	 * @return <code>Set of Type Integer</code>
+	 * 
+	 */
 	public static Set<Integer> getGenreIdsFromList(List<String> params) {
-		// using set we remove duplicates since we cannot have same genre multiple times
-		// in a movie
 		return genreMap.getGenreIds(params);
 
 	}
@@ -220,6 +263,9 @@ public class Utilities {
 	}
 
 	/**
+	 * This method throws a dummy MovieDbException in certain scenarios to execute
+	 * the catch command in the class from which it was called
+	 * 
 	 * @throws MovieDbException
 	 */
 	public static void throwMovieDBDummyError() throws MovieDbException {
