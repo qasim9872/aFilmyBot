@@ -1,5 +1,5 @@
 
-package com.accenture.liquidstudio;
+package com.accenture.liquidstudio.afewRandomClasses;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.accenture.liquidstudio.WriteToFileUtil;
+import com.accenture.liquidstudio.afewRandomClasses.WriteToFileUtil;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

@@ -7,13 +7,14 @@ import java.util.Map;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
-import com.accenture.liquidstudio.MaxSizeHashMap;
+
 import com.accenture.liquidstudio.accessBotHybridApi.ParseIntentAndReplyService;
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.enumeration.SearchType;
 import com.omertron.themoviedbapi.model.movie.MovieBasic;
 import com.omertron.themoviedbapi.model.movie.MovieInfo;
+
 import ai.api.model.Result;
 
 public class SearchTmdbClass implements HasMarkupProperty {
