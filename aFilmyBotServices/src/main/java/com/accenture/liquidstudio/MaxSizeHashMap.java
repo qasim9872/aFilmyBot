@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 public class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
 	/**
 	 * 
@@ -34,6 +36,7 @@ public class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
 		checkExpiredMap();
 		V val = super.get(key);
 		System.out.println("getting value from map --> "+val);
+//		JOptionPane.showMessageDialog(null, "getting value");
 		return val;
 	}
 	
@@ -44,6 +47,7 @@ public class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
 		checkExpiredMap();
 		V val = super.put(key, value);
 		System.out.println("\ninserting value to map --> "+value);
+//		JOptionPane.showMessageDialog(null, "putting value");
 		return val;
 	}
 

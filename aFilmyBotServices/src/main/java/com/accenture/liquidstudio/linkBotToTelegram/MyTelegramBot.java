@@ -45,7 +45,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 		if (update.hasMessage()) {
 			// Set variables
 
-			String errorMessage = "";
+			String errorMessage = "", specialMessage = "";
 			AIResponse response = null;
 			SendMessage messageToBeSent = null;
 			long chat_id = update.getMessage().getChatId();
@@ -53,11 +53,26 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 			try {
 
 				if (update.getMessage().hasText()) {
-					
-					errorMessage = "Unable to parse the given text";
-					
-					response = replyGenerator.getResponse(update.getMessage().getText());
 
+					String textMessage = update.getMessage().getText();
+
+					if (textMessage.equalsIgnoreCase("/start") || textMessage.equalsIgnoreCase("/help")) {
+						// special /start case, creating initial start message
+						System.out.println(textMessage);
+						specialMessage += "Hi " + update.getMessage().getChat().getFirstName() + ",\n"
+								+ "I am a bot and I am here to help you search for movies by \n1. Film name \n2. Genre\n"
+								+ "\nI can also show you now showing, top rated or popular movies."
+								+ "\nExample queries would be: "
+								+ "\n  1. Search for The avengers"
+								+ "\n  2. Find me a romantic comedy"
+								+ "\n  3. Lookup popular films"
+								+ "\n  4. Show me movies in cinema now"
+								+ "\n  5. Get the highest rated films";
+
+					} else {
+						errorMessage = "Unable to parse the given text";
+						response = replyGenerator.getResponse(textMessage);
+					}
 				} else if (update.getMessage().getVoice() != null) {
 
 					File voiceFile = getFile(new GetFile().setFileId(update.getMessage().getVoice().getFileId()));
@@ -79,7 +94,8 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 					messageToBeSent = tmdb.parseResultObject(response.getResult());
 					messageToBeSent.setParseMode("Markdown");
 				} else {
-					// In the finally block, a message with the set error message will be sent
+//					System.out.println(specialMessage);
+					// In the finally block, a message with the special or error message will be sent
 				}
 
 			} catch (AIServiceException e) {
@@ -96,7 +112,11 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 				errorMessage = ("We were unable to match your query to anything, please try again");
 			} finally {
 				if (messageToBeSent == null)
-					messageToBeSent = getNewMessageWithText(errorMessage);
+					if (errorMessage.equals(""))
+						messageToBeSent = getNewMessageWithText(specialMessage);
+					else
+						messageToBeSent = getNewMessageWithText(errorMessage);
+
 				messageToBeSent.setChatId(chat_id);
 				sendGivenMessage(messageToBeSent);
 			}
@@ -119,23 +139,23 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 
 				} else if (call_data.startsWith("view_")) {
 
-//					System.out.println("call back query --> " + call_data);
+					// System.out.println("call back query --> " + call_data);
 					tmdb.callBackParser(new_message, call_data.substring(5));
 
 				} else {
 					new_message.setText("Something seems to have gone wrong");
 				}
-					
+
 				editMessageText(new_message);
 
 			} catch (MovieDbException e) {
-				
+
 				sendEditMessage(new_message, "Unable to load the appropriate movie");
 
 			} catch (TelegramApiException e) {
-				
+
 				sendEditMessage(new_message, "There seems to have been an issue handling your query");
-				
+
 			}
 
 		}
