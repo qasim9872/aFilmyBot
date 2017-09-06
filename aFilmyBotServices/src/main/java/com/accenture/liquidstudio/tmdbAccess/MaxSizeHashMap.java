@@ -1,11 +1,9 @@
-package com.accenture.liquidstudio;
+package com.accenture.liquidstudio.tmdbAccess;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
 
 /**
  * A special hashMap class that limits the number of entries and also resets the map after 1 day

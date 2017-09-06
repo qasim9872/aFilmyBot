@@ -1,4 +1,4 @@
-package com.accenture.liquidstudio;
+package com.accenture.liquidstudio.afewRandomClasses;
 
 import java.util.ArrayList;
 import java.util.List;

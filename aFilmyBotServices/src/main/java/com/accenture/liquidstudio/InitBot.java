@@ -1,9 +1,11 @@
-package com.accenture.liquidstudio.linkBotToTelegram;
+package com.accenture.liquidstudio;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import com.accenture.liquidstudio.linkBotToTelegram.BotInjectorModule;
+import com.accenture.liquidstudio.linkBotToTelegram.MyTelegramBot;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 

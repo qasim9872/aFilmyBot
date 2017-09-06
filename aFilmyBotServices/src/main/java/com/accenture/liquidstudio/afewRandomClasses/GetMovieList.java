@@ -1,4 +1,4 @@
-package com.accenture.liquidstudio;
+package com.accenture.liquidstudio.afewRandomClasses;
 
 import java.io.IOException;
 
